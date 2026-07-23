@@ -1,0 +1,34 @@
+---
+description: Security-first practices — auth, secrets, injection prevention, admin isolation
+globs: "**/*.{ts,tsx,sql,yml,yaml}"
+alwaysApply: true
+---
+
+# Security Guardrails
+
+Details: `AGENTS.md` §5–§6. Never hardcode secrets.
+
+## Auth
+
+- App: JWT 15m + refresh 7d (HTTP-only cookie) + OAuth2
+- Admin: JWT 30m + refresh 2h + TOTP MFA + IP whitelist; port 3002, internal network only
+- RBAC: `@Roles()` + `@Permissions()`; admin uses `@SuperAdmin()` where required
+- Rate limits: default 10/60s, auth 5/60s, admin 30/60s
+
+## Data Protection
+
+- PII encrypted at rest (AES-256) and in transit (TLS 1.3)
+- Passwords: bcrypt 12 rounds (app); min 16 chars + complexity (admin)
+- Uploads: max 10MB, MIME validation; TypeORM parameterized queries only
+- XSS: DOMPurify for user HTML; CORS whitelist (no `*` in prod); Helmet in production
+
+## Secrets
+
+- Env vars + Vault/Docker secrets only; `.env.example` at root; app refuses start if missing
+- No API keys in frontend (except public keys like Stripe publishable)
+
+## Admin
+
+- Admin DB user: SELECT on app schema, no INSERT/UPDATE/DELETE
+- All admin actions → `admin.admin_audit_logs` with before/after
+- Internal API: `X-Internal-Key` header, not in Swagger

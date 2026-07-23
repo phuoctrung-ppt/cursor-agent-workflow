@@ -1,0 +1,33 @@
+---
+description: Soft multi-tenancy — tenant_id rules, TenantContextGuard, application-level isolation
+globs: "apps/{api,admin}/**/*.ts"
+alwaysApply: true
+---
+
+# Soft Multi-Tenancy (MVP)
+
+> ⚠️ **EXAMPLE DOMAIN (AI hiring/recruiting) — NOT this project's rules.**
+> This file is a portable **example** of a soft multi-tenancy pattern. Its specifics
+> (`jobs`, `applications`, `interview_recordings`, CVs, HR/candidate roles) do **not**
+> describe the current project. **Agents: ignore the domain specifics below until this
+> file is replaced** with the real tenancy model for `<PROJECT>` (see `AGENTS.md §4`).
+> Delete or rewrite on port.
+
+Details: `AGENTS.md` §4. Application-level isolation, no RLS in MVP.
+
+## tenant_id Rules
+
+- **Has tenant_id:** `users` (nullable), `jobs`, `applications`, `interview_recordings`, `audit_logs`
+- **No tenant_id:** `cvs`, `cv_versions`, `skills`, `consents` (global/candidate-owned)
+- Candidates: `tenant_id` NULL; HR: `tenant_id` NOT NULL; Admin users: NULL
+
+## Application Isolation
+
+- `TenantContextGuard` + `@TenantId()` on tenant-scoped queries
+- HR queries MUST filter `tenant_id`; no cross-tenant access on app API
+- Admin service: cross-tenant read-only for analytics
+
+## Tenant Lifecycle
+
+- Auto-create tenant on HR register: `plan=free`, `max_users=5`, `max_jobs=3`, `max_ai_credits=100`
+- Reject if `tenant.status != 'active'`; soft limits → `403` with upgrade prompt
