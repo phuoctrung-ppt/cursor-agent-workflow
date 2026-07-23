@@ -1,0 +1,153 @@
+{
+  "schemaVersion": 1,
+  "description": "Worker edit scopes. genericRoles are portable defaults reusable by any project. The 'agents' section ships PORTABLE, layout-independent globs (mirrors genericRoles) so enforcement works on any folder structure out of the box; tighten them to your real paths from AGENTS.md §3 when porting (see portingNote).",
+  "genericRoles": {
+    "planner": [
+      "docs/**",
+      ".cursor/**",
+      "AGENTS.md",
+      "README.md"
+    ],
+    "backend": [
+      "**/api/**",
+      "**/server/**",
+      "**/backend/**",
+      "packages/**"
+    ],
+    "frontend": [
+      "**/web/**",
+      "**/frontend/**",
+      "**/ui/**",
+      "packages/**"
+    ],
+    "designer": [
+      "**/web/**",
+      "**/frontend/**",
+      "**/ui/**",
+      "**/design/**",
+      "packages/**",
+      "docs/**"
+    ],
+    "database": [
+      "**/database/**",
+      "**/migrations/**",
+      "**/db/**",
+      "docs/adr/**"
+    ],
+    "ai": [
+      "**/ai/**",
+      "**/llm/**",
+      "**/prompts/**",
+      "packages/**"
+    ],
+    "devops": [
+      "docker/**",
+      ".github/workflows/**",
+      "**/Dockerfile*",
+      "**/*.yml",
+      "**/*.yaml",
+      ".env.example"
+    ],
+    "qa": [
+      "**/*.spec.*",
+      "**/*.test.*",
+      "**/*.e2e.*",
+      "tests/**",
+      "docs/reviews/**"
+    ],
+    "security": [
+      "**/auth/**",
+      "**/security/**",
+      "**/guards/**",
+      ".cursor/rules/**",
+      "docs/reviews/**"
+    ],
+    "judge": [
+      "docs/reviews/**"
+    ]
+  },
+  "default": [
+    "**/*"
+  ],
+  "portingNote": "The 'agents' section below uses PORTABLE, layout-independent globs (mirrors 'genericRoles') so scope enforcement works on any folder structure with no domain assumptions. When porting, GENESIS Step 2 (/architecture-plan) or a manual edit should TIGHTEN these to your project's exact paths from AGENTS.md §3 (Repository Structure) and §5 (Agent Roster & Scopes). Do NOT delete an agent's entry (it would fall back to allow-all 'default'); replace globs instead. Do NOT use literal placeholders like 'apps/<x>/**' (they match nothing and block all edits).",
+  "agents": {
+    "architect-planner": [
+      "docs/**",
+      ".cursor/**",
+      "AGENTS.md",
+      "README.md"
+    ],
+    "scaffold-agent": [
+      "**/modules/**",
+      "**/migrations/**",
+      "**/app/**",
+      "**/processors/**",
+      "packages/**",
+      "AGENTS.md",
+      "docs/plans/**"
+    ],
+    "backend-worker": [
+      "**/api/**",
+      "**/server/**",
+      "**/backend/**",
+      "packages/**"
+    ],
+    "frontend-worker": [
+      "**/web/**",
+      "**/frontend/**",
+      "**/ui/**",
+      "packages/**"
+    ],
+    "designer-worker": [
+      "**/web/**",
+      "**/frontend/**",
+      "**/ui/**",
+      "**/design/**",
+      "packages/**",
+      "docs/design/**",
+      "docs/plans/**"
+    ],
+    "database-worker": [
+      "**/database/**",
+      "**/migrations/**",
+      "**/db/**",
+      "docs/adr/**"
+    ],
+    "ai-worker": [
+      "**/ai/**",
+      "**/llm/**",
+      "**/prompts/**",
+      "packages/**"
+    ],
+    "devops-worker": [
+      "docker/**",
+      "infra/**",
+      ".github/workflows/**",
+      "**/Dockerfile*",
+      "**/*.yml",
+      "**/*.yaml",
+      ".env.example"
+    ],
+    "qa-worker": [
+      "**/*.spec.*",
+      "**/*.test.*",
+      "**/*.e2e.*",
+      "tests/**",
+      "docs/reviews/**"
+    ],
+    "security-worker": [
+      "**/auth/**",
+      "**/security/**",
+      "**/guards/**",
+      ".cursor/rules/**",
+      "docs/reviews/**"
+    ],
+    "admin-worker": [
+      "**/admin/**",
+      "docs/reviews/**"
+    ],
+    "judge-agent": [
+      "docs/reviews/**"
+    ]
+  }
+}

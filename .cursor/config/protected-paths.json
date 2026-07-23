@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "description": "Protected-change classifier. Keep genericProtectedGlobs portable and unchanged across projects. Add project-specific paths only in projectProtectedGlobs. The workflow-guard.py merges both at runtime — no need to duplicate into a flat protectedGlobs list.",
+  "genericProtectedGlobs": [
+    ".cursor/hooks.json",
+    ".cursor/hooks/**",
+    ".cursor/config/**",
+    ".cursor/rules/**",
+    ".cursor/commands/**",
+    ".github/workflows/**",
+    "**/migrations/**",
+    "**/auth/**",
+    "**/security/**",
+    "**/secrets/**",
+    "**/infra/**",
+    "**/terraform/**",
+    "**/k8s/**",
+    "**/helm/**",
+    "**/Dockerfile*",
+    "**/docker-compose*.yml",
+    "**/docker-compose*.yaml"
+  ],
+  "projectProtectedGlobs": [
+    "AGENTS.md",
+    "(_replace_with_your_sensitive_app_paths_)"
+  ],
+  "protectedKeywords": [
+    "SECRET",
+    "API_KEY",
+    "PRIVATE_KEY",
+    "PASSWORD=",
+    "DROP TABLE",
+    "DROP DATABASE",
+    "synchronize: true",
+    "process.env"
+  ],
+  "multiFileThreshold": 3,
+  "planArtifactGlobs": [
+    "docs/plans/**",
+    "docs/adr/**"
+  ],
+  "reviewArtifactGlobs": [
+    "docs/reviews/**"
+  ],
+  "planRequiredForProtected": true,
+  "failClosedOnlyForProtected": true,
+  "stopRetryCap": 2,
+  "overrideLog": "docs/reviews/review-overrides.log"
+}

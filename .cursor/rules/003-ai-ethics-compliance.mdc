@@ -1,0 +1,36 @@
+---
+description: EU AI Act, GDPR, human-in-the-loop, XAI, consent for biometric data
+globs: "**/*.{ts,tsx}"
+alwaysApply: true
+---
+
+# AI Ethics & Compliance
+
+> ⚠️ **EXAMPLE DOMAIN (AI hiring/recruiting) — NOT this project's rules.**
+> This file is a portable **example** of how to encode AI-ethics compliance. Its specifics
+> (hire/reject, CV/biometric consent, bias/HR) do **not** describe the current project.
+> **Agents: ignore the domain specifics below until this file is replaced** with real
+> compliance rules for `<PROJECT>` (see `AGENTS.md §6`). Delete or rewrite on port.
+
+Details: `AGENTS.md` §6.
+
+## Human-in-the-Loop (mandatory)
+
+- AI cannot auto-reject or auto-hire; HR approval required for Rejected/Hired
+- Reject/hire endpoints need `?confirm=true`; without it → `202` + `pending_human_review`
+- Override reason required when HR disagrees with AI; 48h SLA or escalation
+
+## Explainable AI
+
+Every AI decision returns `explanation`: `confidence`, `factors[]`, `counterfactuals[]`, model card link.
+
+## Consent & Biometric
+
+- Consent screen before CV upload; separate explicit consent for video/voice
+- Check `consents.granted=true` for `biometric` before processing; else `403 ConsentRequired`
+- Auto-delete raw video after transcription; never store facial/voice embeddings
+
+## Bias & Audit
+
+- Run `BiasDetectionService.check()` before match scores; flag `bias_alert` if disparate impact
+- Log every AI decision to `audit_logs` with `ai_model_version`, `ai_confidence`; 7yr retention for hiring

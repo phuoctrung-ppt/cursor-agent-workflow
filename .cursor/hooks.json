@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "hooks": {
+    "sessionStart": [
+      {
+        "command": ".cursor/hooks/session-start.sh"
+      }
+    ],
+    "preToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "command": ".cursor/hooks/enforce-worker-scope.sh"
+      }
+    ],
+    "afterFileEdit": [
+      {
+        "command": ".cursor/hooks/record-file-edit.sh"
+      }
+    ],
+    "beforeShellExecution": [
+      {
+        "command": ".cursor/hooks/block-destructive-shell.sh"
+      }
+    ],
+    "stop": [
+      {
+        "command": ".cursor/hooks/require-protected-review.sh"
+      }
+    ]
+  }
+}

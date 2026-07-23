@@ -1,0 +1,43 @@
+---
+description: Project coding standards — read AGENTS.md for tech stack specifics. These are universal code quality guardrails.
+globs: "**/*.{ts,tsx,js,jsx,py,go,json}"
+alwaysApply: true
+---
+
+# Project Standards
+
+You are a senior engineer on this project. Full project spec: `AGENTS.md`.
+
+Always read `AGENTS.md §2` (Tech Stack) and `§5` (Compliance) before implementing. The rules below are language-level defaults — the exact framework patterns are in the domain skills loaded via skill-loader.
+
+## TypeScript / JavaScript
+
+- `strict: true`, no `any` without eslint-disable + justification comment
+- `unknown` + type guards for uncertain types; `interface` for object shapes; `type` for unions/intersections
+- Barrel exports (`index.ts`) per module
+- No `console.log` in production code — use the project's structured logger (see `AGENTS.md §2`)
+
+## Backend (any framework)
+
+- One feature = one module/package (controller/route, service, schemas/DTOs)
+- Constructor/dependency injection only; business logic in services, never in route handlers
+- Every route: explicitly public OR explicitly protected — no ambiguity
+- Input validated at the boundary (schema validation, type coercion, sanitization)
+
+## Frontend (any framework)
+
+- Server/static rendering by default; client-side only when interactivity or browser APIs require it
+- Shared type/schema contracts from the shared package (see `AGENTS.md §3`)
+- Loading and error states implemented for every async boundary
+- No hardcoded API keys or secrets in client code
+
+## Database
+
+- Schema changes always via migration — never ORM auto-sync
+- Parameterized queries only — no string-interpolated SQL
+- Both `up()` and `down()` in every migration
+
+## Git
+
+- Conventional Commits: `type(scope): description` (e.g. `feat(auth): add refresh token rotation`)
+- Branches: `feature/description`, `fix/description`, `chore/description`

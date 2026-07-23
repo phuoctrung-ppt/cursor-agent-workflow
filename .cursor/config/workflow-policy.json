@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "workflowName": "Agentic Planner-Worker-Judge Workflow",
+  "description": "Domain-agnostic agentic workflow config. Project identity lives in AGENTS.md at the repo root — not here.",
+  "standardsDocs": [
+    "AGENTS.md"
+  ],
+  "entrypointDocs": [
+    "AGENTS.md"
+  ],
+  "artifactDirs": {
+    "plans": "docs/plans",
+    "adrs": "docs/adr",
+    "reviews": "docs/reviews"
+  },
+  "cycle": [
+    "classify",
+    "plan",
+    "execute",
+    "verify",
+    "review",
+    "loop-or-complete"
+  ],
+  "protectedChanges": {
+    "classifier": ".cursor/config/protected-paths.json",
+    "requirePlan": true,
+    "requireReview": true,
+    "failClosedOnlyWhenProtected": true,
+    "stopRetryCap": 2,
+    "overrideLog": "docs/reviews/review-overrides.log"
+  },
+  "workerScopes": {
+    "config": ".cursor/config/worker-scopes.json",
+    "enforcement": "preToolUse"
+  },
+  "portableSetupNotes": [
+    "To port to another repo:",
+    "1. Copy .cursor/ folder and AGENTS.md to the new repo.",
+    "2. Fill in AGENTS.md (project name, tech stack, structure, agent scopes).",
+    "3. Update .cursor/config/protected-paths.json — only 'projectProtectedGlobs' needs changing.",
+    "4. Optionally add project-specific agent scopes in .cursor/config/worker-scopes.json under 'agents'.",
+    "5. Add domain skills to .cursor/skills/ and register in skills-manifest.json.",
+    "No changes needed to hooks, workflow-guard.py, skill-loader.py, or generic rules."
+  ]
+}

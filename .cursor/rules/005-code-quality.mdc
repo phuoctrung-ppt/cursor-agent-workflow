@@ -1,0 +1,30 @@
+---
+description: Logging, error envelopes, testing coverage, performance conventions
+globs: "**/*.{ts,tsx}"
+alwaysApply: true
+---
+
+# Code Quality
+
+Details: `AGENTS.md` §5 (code quality) and §12 (forbidden patterns).
+
+## Logging
+
+- No `console.log` in production; Winston in API/worker; `console.error` only in frontend catch blocks
+- Structured JSON: `{ timestamp, level, correlationId, service, message, metadata }`
+- `LoggerInterceptor` assigns `correlation-id` per request
+
+## Errors
+
+- Custom `HttpException` filters; envelope: `{ data, meta, error }`
+- Status codes: 200, 201, 204, 400, 401, 403, 404, 409, 422, 429, 500
+
+## Testing
+
+- Coverage: 70% API services, 50% frontend; `*.spec.ts`, `*.e2e-spec.ts`, `*.test.ts`
+- Mock external APIs (OpenAI, SendGrid, MinIO, Stripe); MSW for frontend
+
+## Performance
+
+- `next/image` + `next/font` (Inter); colors from `config-tailwind`; `lucide-react` only
+- Cursor pagination for large lists; offset only for small admin lists
