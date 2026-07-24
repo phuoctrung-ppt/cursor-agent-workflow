@@ -1,8 +1,8 @@
 # Cursor Agent Workflow
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Last Commit](https://img.shields.io/github/last-commit/phuoctrung-ppt/cursor-agent-workflow)](https://github.com/phuoctrung-ppt/cursor-agent-workflow/commits)
-[![Repo Stars](https://img.shields.io/github/stars/phuoctrung-ppt/cursor-agent-workflow?style=social)](https://github.com/phuoctrung-ppt/cursor-agent-workflow/stargazers)
+[![Last Commit](https://img.shields.io/github/last-commit/phuoctrung-ppt/ai-sdlc-workflow)](https://github.com/phuoctrung-ppt/ai-sdlc-workflow/commits)
+[![Repo Stars](https://img.shields.io/github/stars/phuoctrung-ppt/ai-sdlc-workflow?style=social)](https://github.com/phuoctrung-ppt/ai-sdlc-workflow/stargazers)
 
 > **A production-oriented AI Software Development Lifecycle (AI SDLC) for Cursor.**
 >
